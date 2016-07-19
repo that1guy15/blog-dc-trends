@@ -1,0 +1,54 @@
+! Command: show running-config
+! device: spine2 (vEOS, EOS-4.15.0F)
+!
+! boot system flash:/vEOS-lab.swi
+!
+transceiver qsfp default-mode 4x10G
+!
+hostname spine2
+!
+spanning-tree mode mstp
+!
+no aaa root
+!
+username admin role network-admin secret 5 $1$NrxFqvHl$27QcrXzgTiG.ht8YuPIvl0
+!
+vrf definition MGMT
+   rd 100:100
+!
+interface Ethernet1
+   description leaf-1
+   no switchport
+   ip address 10.0.21.1/24
+!
+interface Ethernet2
+   description leaf-2
+   no switchport
+   ip address 10.0.22.1/24
+!
+interface Ethernet3
+   description leaf-3
+   no switchport
+   ip address 10.0.23.1/24
+!
+interface Loopback0
+   ip address 22.22.22.22/32
+!
+interface Management1
+   ip address 10.0.0.222/24
+!
+ip route vrf MGMT 0.0.0.0/0 Management1 10.0.0.1
+!
+ip routing
+ip routing vrf MGMT
+!
+router bgp 45112
+   neighbor 10.0.21.2 remote-as 45113
+   neighbor 10.0.21.2 maximum-routes 12000 
+   neighbor 10.0.22.2 remote-as 45114
+   neighbor 10.0.22.2 maximum-routes 12000 
+   neighbor 10.0.23.2 remote-as 45115
+   neighbor 10.0.23.2 maximum-routes 12000 
+!
+!
+end

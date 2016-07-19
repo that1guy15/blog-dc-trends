@@ -1,0 +1,70 @@
+! Command: show running-config
+! device: leaf3 (vEOS, EOS-4.15.0F)
+!
+! boot system flash:/vEOS-lab.swi
+!
+transceiver qsfp default-mode 4x10G
+!
+hostname leaf3
+!
+spanning-tree mode mstp
+!
+no aaa root
+!
+username admin privilege 15 role network-admin secret 5 $1$jNjkY1.n$hdmj2uKvS/wTkKICkIw0v/
+!
+vlan 101,201
+!
+vrf definition MGMT
+!
+interface Ethernet1
+   description Spine-1
+   no switchport
+   ip address 10.0.13.2/24
+!
+interface Ethernet2
+   description Spine-2
+   no switchport
+   ip address 10.0.23.2/24
+!
+interface Ethernet3
+   switchport trunk allowed vlan 101,201
+   switchport mode trunk
+!
+interface Loopback0
+   ip address 3.3.3.3/32
+!
+interface Management1
+   ip address 10.0.0.225/24
+!
+interface Vlan101
+   ip address 172.16.101.33/24
+   ip virtual-router address 172.16.101.1/24
+!
+interface Vlan201
+   ip address 172.16.201.33/24
+   ip virtual-router address 172.16.201.1/24
+!
+interface Vxlan1
+   vxlan multicast-group 239.1.1.1
+   vxlan source-interface Loopback0
+   vxlan udp-port 4789
+   vxlan vlan 101 vni 800
+   vxlan vlan 201 vni 801
+   vxlan flood vtep 1.1.1.1 2.2.2.2
+!
+ip route vrf MGMT 0.0.0.0/0 Management1 10.0.0.1
+!
+ip routing
+no ip routing vrf MGMT
+!
+router bgp 45115
+   neighbor 10.0.13.1 remote-as 45111
+   neighbor 10.0.13.1 maximum-routes 12000 
+   neighbor 10.0.23.1 remote-as 45112
+   neighbor 10.0.23.1 maximum-routes 12000 
+   network 3.3.3.3/32
+   redistribute connected
+!
+!
+end
