@@ -46,7 +46,6 @@ interface Vlan201
    ip virtual-router address 172.16.201.1/24
 !
 interface Vxlan1
-   vxlan multicast-group 239.1.1.1
    vxlan source-interface Loopback0
    vxlan udp-port 4789
    vxlan vlan 101 vni 800
