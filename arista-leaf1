@@ -57,13 +57,16 @@ ip route vrf MGMT 0.0.0.0/0 Management1 10.0.0.1
 ip routing
 ip routing vrf MGMT
 !
+route-map VXLAN permit 10
+   match interface Loopback0
+!
 router bgp 45113
    neighbor 10.0.11.1 remote-as 45111
    neighbor 10.0.11.1 maximum-routes 12000 
    neighbor 10.0.21.1 remote-as 45112
    neighbor 10.0.21.1 maximum-routes 12000 
    network 1.1.1.1/32
-   redistribute connected
+   redistribute connected route-map VXLAN
 !
 !
 end
