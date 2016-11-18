@@ -1,0 +1,27 @@
+---
+
+- name: Basic Cisco Playbook
+  hosts: ios
+  gather_facts: no
+  connection: local
+
+  tasks:
+
+    - name: DEBUG AND PRINT TO TERMINAL
+      debug: var=inventory_hostname
+
+    - name: PRINT TYPE
+      debug: var=type
+
+    - name: PRINT ROLE
+      debug: var=role
+
+    - name: SHOW CDP NEIGHBORS
+      ios_command:
+        commands: show cdp neighbors
+        username: admin
+        password: cisco
+        host: "{{ inventory_hostname }}"
+      register: cdp_output
+
+    - debug: var=cdp_output
