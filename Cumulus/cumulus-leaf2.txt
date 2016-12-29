@@ -30,6 +30,7 @@ auto lo
    iface lo inet loopback
    address 4.4.4.4/32
 
+
 # The primary network interface
 auto mgmt
 iface mgmt
@@ -54,6 +55,22 @@ auto swp2
 auto swp3
     iface swp3
     alias swp3 HOST2
+
+auto bridge
+iface bridge
+        bridge-vlan-aware yes
+    bridge-ports swp3
+        bridge-vids 101 201
+    bridge-ageing 150
+    bridge-stp on
+
+auto bridge.101
+iface bridge.101
+  address 172.16.101.1/24
+
+auto bridge.201
+iface bridge.201
+  address 172.16.201.1/24
 
 -------------------------------
 -------------------------------
@@ -96,6 +113,7 @@ router bgp 45114
  neighbor fabric remote-as external
  neighbor fabric description Internal Fabric Network
  neighbor fabric advertisement-interval 0
+ neighbor fabric default-originate
  neighbor fabric timers 1 3
  neighbor fabric timers connect 3
  neighbor fabric capability extended-nexthop
@@ -103,16 +121,15 @@ router bgp 45114
  neighbor swp1 peer-group fabric
  neighbor swp2 interface
  neighbor swp2 peer-group fabric
- neighbor swp3 interface
- neighbor swp3 peer-group fabric 
  !
  address-family ipv6 unicast
-  network 172.16.101.0/24
-  network 172.16.201.0/24
-  network 4.4.4.4/32
   neighbor fabric activate
   neighbor swp1 activate
   neighbor swp2 activate
+ exit-address-family
+!
+ address-family ipv4 unicast
+  redistribute connected
  exit-address-family
 !
 line vty

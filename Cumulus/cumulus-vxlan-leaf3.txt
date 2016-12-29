@@ -1,4 +1,4 @@
-Cumulus 3.1.1 Leaf1
+Cumulus 3.1.1 Leaf3
 
 -------------------------------
 -------------------------------
@@ -28,7 +28,7 @@ source /etc/network/interfaces.d/*.intf
 # The loopback network interface
 auto lo
    iface lo inet loopback
-   address 3.3.3.3/32
+   address 5.5.5.5/32
 
 
 # The primary network interface
@@ -39,7 +39,7 @@ iface mgmt
 
 auto eth0
 iface eth0 inet static
-    address 10.0.0.223
+    address 10.0.0.225
     netmask 255.255.255.0
     gateway 10.0.0.1
     vrf mgmt
@@ -54,13 +54,13 @@ auto swp2
 
 auto swp3
     iface swp3
-    alias swp3 HOST1
+    alias swp3 HOST3
 
 auto bridge
 iface bridge
-        bridge-vlan-aware yes
-    bridge-ports swp3
-        bridge-vids 101 201
+    bridge-vlan-aware yes
+    bridge-ports swp3 vxlan10101 vxlan10201
+    bridge-vids 101 201
     bridge-ageing 150
     bridge-stp on
 
@@ -71,6 +71,19 @@ iface bridge.101
 auto bridge.201
 iface bridge.201
   address 172.16.201.1/24
+  
+auto vxlan10101
+iface vxlan10101
+     vxlan-id 10101
+     vxlan-local-tunnelip 5.5.5.5
+     bridge-access 101
+ 
+auto vxlan10201
+iface vxlan10201
+     vxlan-id 10201
+     vxlan-local-tunnelip 5.5.5.5
+     bridge-access 201  
+  
 
 -------------------------------
 -------------------------------
@@ -78,7 +91,7 @@ iface bridge.201
 -------------------------------
 -------------------------------
 
-hostname leaf1
+hostname leaf3
 log timestamp precision 6
 log file /var/log/quagga/bgpd.log
 
@@ -105,8 +118,8 @@ no ipv6 nd suppress-ra
 ipv6 nd ra-interval 3
 !
 !
-router bgp 45113
- bgp router-id 3.3.3.3
+router bgp 45115
+ bgp router-id 5.5.5.5
  bgp bestpath as-path multipath-relax
  bgp bestpath compare-routerid
  neighbor fabric peer-group
@@ -129,8 +142,14 @@ router bgp 45113
  exit-address-family
 !
  address-family ipv4 unicast
-  redistribute connected
+  network 5.5.5.5/32
  exit-address-family
+!
+ address-family evpn
+  neighbor fabric activate
+  advertise-vni
+ exit-address-family
+exit
 !
 line vty
 !

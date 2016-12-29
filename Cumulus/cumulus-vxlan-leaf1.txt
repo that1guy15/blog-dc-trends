@@ -58,9 +58,9 @@ auto swp3
 
 auto bridge
 iface bridge
-        bridge-vlan-aware yes
-    bridge-ports swp3
-        bridge-vids 101 201
+    bridge-vlan-aware yes
+    bridge-ports swp3 vxlan10101 vxlan10201
+    bridge-vids 101 201
     bridge-ageing 150
     bridge-stp on
 
@@ -71,6 +71,18 @@ iface bridge.101
 auto bridge.201
 iface bridge.201
   address 172.16.201.1/24
+  
+auto vxlan10101
+iface vxlan10101
+     vxlan-id 10101
+     vxlan-local-tunnelip 3.3.3.3
+     bridge-access 101
+ 
+auto vxlan10201
+iface vxlan10201
+     vxlan-id 10201
+     vxlan-local-tunnelip 3.3.3.3
+     bridge-access 201
 
 -------------------------------
 -------------------------------
@@ -129,8 +141,14 @@ router bgp 45113
  exit-address-family
 !
  address-family ipv4 unicast
-  redistribute connected
+  network 3.3.3.3/32
  exit-address-family
+!
+ address-family evpn
+  neighbor fabric activate
+  advertise-vni
+ exit-address-family
+exit
 !
 line vty
 !
