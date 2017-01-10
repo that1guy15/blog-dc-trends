@@ -39,7 +39,7 @@ iface mgmt
 
 auto eth0
 iface eth0 inet static
-    address 10.0.0.223
+    address 10.0.0.233
     netmask 255.255.255.0
     gateway 10.0.0.1
     vrf mgmt
@@ -141,7 +141,8 @@ router bgp 45113
  exit-address-family
 !
  address-family ipv4 unicast
-  network 3.3.3.3/32
+  redistribute connected
+  neighbor fabric prefix-list dc-leaf-out out
  exit-address-family
 !
  address-family evpn
@@ -149,6 +150,11 @@ router bgp 45113
   advertise-vni
  exit-address-family
 exit
+!
+ip prefix-list dc-leaf-out seq 10 permit 0.0.0.0/0
+ip prefix-list dc-leaf-out seq 20 permit 3.3.3.3/32
+ip prefix-list dc-leaf-out seq 30 permit 172.16.101.0/24 le 32
+ip prefix-list dc-leaf-out seq 40 permit 172.16.201.0/24 le 32
 !
 line vty
 !
