@@ -11,5 +11,3 @@ cumulus-spine1 role=spine
 cumulus-leaf1 role=leaf
 cumulus-leaf2 role=leaf
 cumulus-leaf3 role=leaf
-
-
