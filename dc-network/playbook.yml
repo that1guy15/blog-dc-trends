@@ -1,0 +1,22 @@
+---
+
+  - name: Arista
+    hosts: arista-spine1
+    gather_facts: no
+    connection: local
+
+    tasks:
+
+      - name: Interface status
+        ntc_show_command:
+          connection=ssh
+          command='show interfaces status'
+          platform=arista_eos
+          host={{ inventory_hostname }}
+          username=admin
+          password=admin
+          template_dir='/home/that1guy15/dc-network/ntc-ansible/ntc-templates/templates'
+        register: result
+
+      - debug: var=result
+

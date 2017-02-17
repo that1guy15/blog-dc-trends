@@ -1,0 +1,6 @@
+build/
+dist/
+ntc-ansible/
+ntc_ansible.egg-info/
+.idea/
+.git/
