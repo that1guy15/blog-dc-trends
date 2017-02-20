@@ -1,0 +1,16 @@
+hostname arista-leaf3
+!
+username admin privilege 15 role network-admin secret 5 $1$2yTIv5bw$pWK2nDyHQyqTyVtFjAwMq1
+!
+vrf definition MGMT
+!
+interface Management1
+   ip address 10.0.0.225/24
+!
+ip route vrf MGMT 0.0.0.0/0 Management1 10.0.0.1
+!
+ip routing
+ip routing vrf MGMT
+!
+!
+end

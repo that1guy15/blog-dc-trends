@@ -1,0 +1,13 @@
+hostname arista-leaf1
+!
+username admin privilege 15 role network-admin secret 5 $1$2yTIv5bw$pWK2nDyHQyqTyVtFjAwMq1
+!
+
+!
+interface Management1
+   ip address 10.0.0.223/24
+!!
+ip routing
+!
+!
+end
