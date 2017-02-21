@@ -2,15 +2,14 @@ hostname arista-spine2
 !
 username admin privilege 15 role network-admin secret 5 $1$2yTIv5bw$pWK2nDyHQyqTyVtFjAwMq1
 !
-vrf definition MGMT
-!
 interface Management1
    ip address 10.0.0.222/24
-!
-ip route vrf MGMT 0.0.0.0/0 Management1 10.0.0.1
+   no shutdown
 !
 ip routing
-ip routing vrf MGMT
 !
+management api http-commands
+   protocol http
+   no shutdown
 !
 end

@@ -1,0 +1,11 @@
+---
+
+vlans:
+  - { id: 101, name: PROD-A, vni: 800 }
+  - { id: 201, name: PROD-B, vni: 801 }
+
+vlan101-gw: 172.16.101.1/24
+vlan201-gw: 172.16.201.1/24
+
+spine1-asn: 45111
+spine2-asn: 45112

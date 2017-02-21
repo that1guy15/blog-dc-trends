@@ -1,0 +1,14 @@
+---
+
+spine1-link-ip:
+spine2-link-ip:
+
+loopback-ip:
+mgmt-ip:
+
+
+vlan101-ip:
+vlan201-ip:
+
+
+bgp-asn:

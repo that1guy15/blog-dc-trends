@@ -1,15 +1,26 @@
-[eos]
+[eos-spine]
 arista-spine1 role=spine
 arista-spine2 role=spine
+
+[eos-leaf]
 arista-leaf1 role=leaf
 arista-leaf2 role=leaf
 arista-leaf3 role=leaf
 
-[cumulus]
+[cumulus-spine]
 cumulus-spine1 role=spine
 cumulus-spine1 role=spine
+
+[cumulus-leaf]
 cumulus-leaf1 role=leaf
 cumulus-leaf2 role=leaf
 cumulus-leaf3 role=leaf
 
 
+[eos:children]
+eos-spine
+eos-leaf
+
+[cumulus:children]
+cumulus-spine
+cumulus-leaf

@@ -1,0 +1,51 @@
+hostname {{ inventory_hostname }}
+!
+snmp-server community rbhome ro
+!
+spanning-tree mode mstp
+!
+aaa authorization exec default local
+!
+no aaa root
+!
+username admin privilege 15 role network-admin secret 5 $1$2yTIv5bw$pWK2nDyHQyqTyVtFjAwMq1
+!
+!
+interface Ethernet1
+   description Leaf-1
+   no switchport
+   ip address {{ leaf1-link-ip }}
+!
+interface Ethernet2
+   description Leaf-2
+   no switchport
+   ip address {{ leaf2-link-ip }}
+!
+interface Ethernet3
+   description Leaf-3
+   no switchport
+   ip address {{ leaf3-link-ip }}
+!
+interface Loopback0
+   ip address {{ loopback-ip }}
+!
+interface Management1
+   ip address {{ mgmt-ip }}
+!
+!
+ip routing
+!
+router bgp {{ bgp-asn }}
+   neighbor 10.0.11.2 remote-as {{ leaf1-asn }}
+   neighbor 10.0.11.2 maximum-routes 12000
+   neighbor 10.0.12.2 remote-as {{ leaf2-asn }}
+   neighbor 10.0.12.2 maximum-routes 12000
+   neighbor 10.0.13.2 remote-as {{ leaf3-asn }}
+   neighbor 10.0.13.2 maximum-routes 12000
+!
+management api http-commands
+   protocol http
+   no shutdown
+!
+!
+end

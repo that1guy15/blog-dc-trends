@@ -1,0 +1,73 @@
+hostname {{ inventory_hostname }}
+!
+snmp-server community rbhome ro
+!
+spanning-tree mode mstp
+!
+aaa authorization exec default local
+!
+no aaa root
+!
+username admin privilege 15 role network-admin secret 5 $1$2yTIv5bw$pWK2nDyHQyqTyVtFjAwMq1
+!
+{% for vlan in vlans %}
+vlan {{ vlan.id }}
+  name {{ vlan.name }}
+{% endfor %}
+!
+!
+interface Ethernet1
+   description Spine-1
+   no switchport
+   ip address {{ spine1-link-ip }}
+!
+interface Ethernet2
+   description Spine-2
+   no switchport
+   ip address {{ spine2-link-ip }}
+!
+interface Ethernet3
+   switchport mode trunk
+!
+interface Loopback0
+   ip address {{ loopback-ip }}
+!
+interface Management1
+   ip address {{ mgmt-ip }}
+!
+interface Vlan101
+   ip address {{ vlan101-ip }}
+   ip virtual-router address {{ vlan101-gw }}
+!
+interface Vlan201
+   ip address {{ vlan201-ip }}
+   ip virtual-router address {{ vlan101-gw }}
+!
+interface Vxlan1
+   vxlan source-interface Loopback0
+   vxlan udp-port 4789
+{% for vlan in vlans %}
+   vxlan vlan {{ vlan.id }} vni {{ vlan.vni }}
+{% endfor %}
+   vxlan flood vtep 1.1.1.1 2.2.2.2 3.3.3.3
+!
+!
+ip routing
+!
+route-map VXLAN permit 10
+   match interface Loopback0
+!
+router bgp {{ bgp-asn }}
+   neighbor 10.0.11.1 remote-as {{ spine1-asn }}
+   neighbor 10.0.11.1 maximum-routes 12000
+   neighbor 10.0.21.1 remote-as {{ spine2-asn }}
+   neighbor 10.0.21.1 maximum-routes 12000
+   network {{ loopback-ip }}
+   redistribute connected route-map VXLAN
+!
+management api http-commands
+   protocol http
+   no shutdown
+!
+!
+end

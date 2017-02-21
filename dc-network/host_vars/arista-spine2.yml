@@ -1,0 +1,10 @@
+---
+
+leaf1-link-ip:
+leaf2-link-ip:
+leaf3-link-ip:
+
+loopback-ip:
+mgmt-ip:
+
+bgp-asn:
