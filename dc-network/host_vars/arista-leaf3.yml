@@ -1,14 +1,14 @@
 ---
 
-spine1-link-ip:
-spine2-link-ip:
+spine1-link-ip: "10.0.13.2/24"
+spine2-link-ip: "10.0.23.2/24"
 
-loopback-ip:
-mgmt-ip:
-
-
-vlan101-ip:
-vlan201-ip:
+loopback-ip: "3.3.3.3/32"
+mgmt-ip: "10.0.0.225/24"
 
 
-bgp-asn:
+vlan101-ip: 172.16.101.13/24
+vlan201-ip: 172.16.201.13/24
+
+
+bgp-asn: "45115"
