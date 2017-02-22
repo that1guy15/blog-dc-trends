@@ -1,0 +1,23 @@
+---
+
+  - name: Build Arista Spine Configuration
+    hosts: eos-spine
+    connection: local
+    gather_facts: no
+
+    tasks:
+      - name: BUILD CONFIGURATION
+        template:
+          src=templates/eos-spine.j2
+          dest=configs/{{ inventory_hostname }}.conf
+
+  - name: Build Arista leaf Configuration
+    hosts: eos-leaf
+    connection: local
+    gather_facts: no
+
+    tasks:
+      - name: BUILD CONFIGURATION
+        template:
+          src=templates/eos-leaf.j2
+          dest=configs/{{ inventory_hostname }}.conf
