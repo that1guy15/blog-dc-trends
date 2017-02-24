@@ -8,3 +8,6 @@ loopback_ip: "22.22.22.22/32"
 mgmt_ip: "10.0.0.222/24"
 
 bgp_asn: "45112"
+leaf1_asn: "45113"
+leaf1_asn: "45114"
+leaf1_asn: "45115"
