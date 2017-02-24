@@ -14,33 +14,33 @@ username admin privilege 15 role network-admin secret 5 $1$2yTIv5bw$pWK2nDyHQyqT
 interface Ethernet1
    description Leaf-1
    no switchport
-   ip address {{ leaf1-link-ip }}
+   ip address {{ leaf1_link_ip }}
 !
 interface Ethernet2
    description Leaf-2
    no switchport
-   ip address {{ leaf2-link-ip }}
+   ip address {{ leaf2_link_ip }}
 !
 interface Ethernet3
    description Leaf-3
    no switchport
-   ip address {{ leaf3-link-ip }}
+   ip address {{ leaf3_link_ip }}
 !
 interface Loopback0
-   ip address {{ loopback-ip }}
+   ip address {{ loopback_ip }}
 !
 interface Management1
-   ip address {{ mgmt-ip }}
+   ip address {{ mgmt_ip }}
 !
 !
 ip routing
 !
-router bgp {{ bgp-asn }}
-   neighbor 10.0.11.2 remote-as {{ leaf1-asn }}
+router bgp {{ bgp_asn }}
+   neighbor 10.0.11.2 remote-as {{ leaf1_asn }}
    neighbor 10.0.11.2 maximum-routes 12000
-   neighbor 10.0.12.2 remote-as {{ leaf2-asn }}
+   neighbor 10.0.12.2 remote-as {{ leaf2_asn }}
    neighbor 10.0.12.2 maximum-routes 12000
-   neighbor 10.0.13.2 remote-as {{ leaf3-asn }}
+   neighbor 10.0.13.2 remote-as {{ leaf3_asn }}
    neighbor 10.0.13.2 maximum-routes 12000
 !
 management api http-commands

@@ -1,10 +1,10 @@
 ---
 
-leaf1-link-ip: "10.0.21.1/24"
-leaf2-link-ip: "10.0.22.1/24"
-leaf3-link-ip: "10.0.23.1/24"
+leaf1_link_ip: "10.0.21.1/24"
+leaf2_link_ip: "10.0.22.1/24"
+leaf3_link_ip: "10.0.23.1/24"
 
-loopback-ip: "22.22.22.22/32"
-mgmt-ip: "10.0.0.222/24"
+loopback_ip: "22.22.22.22/32"
+mgmt_ip: "10.0.0.222/24"
 
-bgp-asn: "45112"
+bgp_asn: "45112"
