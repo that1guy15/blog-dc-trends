@@ -41,7 +41,7 @@ interface Vlan101
 !
 interface Vlan201
    ip address {{ vlan201_ip }}
-   ip virtual-router address {{ vlan101_gw }}
+   ip virtual-router address {{ vlan201_gw }}
 !
 interface Vxlan1
    vxlan source_interface Loopback0
