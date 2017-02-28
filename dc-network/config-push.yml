@@ -12,7 +12,7 @@
           dest=configs/{{ inventory_hostname }}.conf
         tag: build-spine
 
-       - name: PUSH CONFIGS
+      - name: PUSH CONFIGS
         napalm_install_config:
           hostname={{ inventory_hostname }}
           username={{ username }}
@@ -36,7 +36,7 @@
           dest=configs/{{ inventory_hostname }}.conf
          tag: build-leaf
 
-        - name: PUSH CONFIGS
+      - name: PUSH CONFIGS
         napalm_install_config:
           hostname={{ inventory_hostname }}
           username={{ username }}
