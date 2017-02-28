@@ -7,9 +7,7 @@
 
     tasks:
       - name: BUILD CONFIGURATION
-        template:
-          src=templates/eos-spine.j2
-          dest=configs/{{ inventory_hostname }}.conf
+        template: src=templates/eos-spine.j2 dest=configs/{{ inventory_hostname }}.conf
         tag: build-spine
 
       - name: PUSH CONFIGS
@@ -31,9 +29,7 @@
 
     tasks:
       - name: BUILD CONFIGURATION
-        template:
-          src=templates/eos-leaf.j2
-          dest=configs/{{ inventory_hostname }}.conf
+        template: src=templates/eos-leaf.j2 dest=configs/{{ inventory_hostname }}.conf
         tag: build-leaf
 
       - name: PUSH CONFIGS
