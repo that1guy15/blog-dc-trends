@@ -10,7 +10,6 @@
         template:
           src=templates/eos-spine.j2
           dest=configs/{{ inventory_hostname }}.conf
-        tag: build-spine
 
       - name: PUSH CONFIGS
         napalm_install_config:
@@ -34,7 +33,6 @@
         template:
           src=templates/eos-leaf.j2
           dest=configs/{{ inventory_hostname }}.conf
-        tag: build-leaf
 
       - name: PUSH CONFIGS
         napalm_install_config:
