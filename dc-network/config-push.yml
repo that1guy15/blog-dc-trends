@@ -10,7 +10,7 @@
         template:
           src=templates/eos-spine.j2
           dest=configs/{{ inventory_hostname }}.conf
-       tag: build
+        tag: build-spine
 
        - name: PUSH CONFIGS
         napalm_install_config:
@@ -22,7 +22,7 @@
           commit_changes=true
           replace_config=false
           get_diffs=false
-        tags: push
+         tags: push-spine
 
   - name: Build Arista leaf Configuration
     hosts: eos-leaf
@@ -34,7 +34,7 @@
         template:
           src=templates/eos-leaf.j2
           dest=configs/{{ inventory_hostname }}.conf
-       tag: build
+         tag: build-leaf
 
         - name: PUSH CONFIGS
         napalm_install_config:
@@ -46,4 +46,4 @@
           commit_changes=true
           replace_config=false
           get_diffs=false
-        tags: push
+          tags: push-leaf
