@@ -13,7 +13,7 @@
         tag: build-spine
 
       - name: PUSH CONFIGS
-        eos_template:
+        eos_config:
           src: configs/{{ inventory_hostname }}.conf
         tags: push-spine
 
@@ -30,6 +30,6 @@
         tag: build-leaf
 
       - name: PUSH CONFIGS
-        eos_template:
+        eos_config:
           src: configs/{{ inventory_hostname }}.conf
         tags: push-leaf
