@@ -33,7 +33,6 @@ interface Management1
    ip address {{ mgmt_ip }}
 !
 !
-ip routing
 !
 router bgp {{ bgp_asn }}
    neighbor 10.0.11.2 remote-as {{ leaf1_asn }}
