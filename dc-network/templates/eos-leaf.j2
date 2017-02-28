@@ -44,7 +44,7 @@ interface Vlan201
    ip virtual-router address {{ vlan201_gw }}
 !
 interface Vxlan1
-   vxlan source_interface Loopback0
+   vxlan source-interface Loopback0
    vxlan udp-port 4789
 {% for vlan in vlans %}
    vxlan vlan {{ vlan.id }} vni {{ vlan.vni }}
