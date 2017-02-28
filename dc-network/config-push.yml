@@ -6,7 +6,7 @@
     gather_facts: no
 
     tasks:
-      - name: BUILD CONFIGURATION
+      - name: BUILD CONFIGURATION1
         template:
           src=templates/eos-spine.j2
           dest=configs/{{ inventory_hostname }}.conf
@@ -30,7 +30,7 @@
     gather_facts: no
 
     tasks:
-      - name: BUILD CONFIGURATION
+      - name: BUILD CONFIGURATION2
         template:
           src=templates/eos-leaf.j2
           dest=configs/{{ inventory_hostname }}.conf
