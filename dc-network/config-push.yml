@@ -21,7 +21,6 @@
           commit_changes=true
           replace_config=false
           get_diffs=false
-        tags: push-spine
 
   - name: Build Arista leaf Configuration
     hosts: eos-leaf
@@ -44,4 +43,3 @@
           commit_changes=true
           replace_config=false
           get_diffs=false
-        tags: push-leaf
