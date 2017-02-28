@@ -12,11 +12,6 @@
           dest=configs/{{ inventory_hostname }}.conf
         tag: build-spine
 
-      - name: PUSH CONFIGS
-        eos_config:
-          src: configs/{{ inventory_hostname }}.conf
-        tags: push-spine
-
   - name: Build Arista leaf Configuration
     hosts: eos-leaf
     connection: local
@@ -28,8 +23,3 @@
           src=templates/eos-leaf.j2
           dest=configs/{{ inventory_hostname }}.conf
         tag: build-leaf
-
-      - name: PUSH CONFIGS
-        eos_config:
-          src: configs/{{ inventory_hostname }}.conf
-        tags: push-leaf
