@@ -1,20 +1,19 @@
 ---
 
-tasks:
-  - name: BUILD CONFIGURATION
-    template:
-      src=eos-spine.j2
-      dest=configs/{{ inventory_hostname }}.conf
-    tags: build_spine
+- name: BUILD CONFIGURATION
+  template:
+    src=eos-spine.j2
+    dest=configs/{{ inventory_hostname }}.conf
+  tags: build_spine
 
-  - name: PUSH CONFIGS
-    napalm_install_config:
-      hostname={{ inventory_hostname }}
-      username={{ username }}
-      password={{ pwd }}
-      dev_os=eos
-      config_file=configs/{{ inventory_hostname }}.conf
-      commit_changes=true
-      replace_config=false
-      get_diffs=false
-    tags: push_spine
+- name: PUSH CONFIGS
+  napalm_install_config:
+    hostname={{ inventory_hostname }}
+    username={{ username }}
+    password={{ pwd }}
+    dev_os=eos
+    config_file=configs/{{ inventory_hostname }}.conf
+    commit_changes=true
+    replace_config=false
+    get_diffs=false
+  tags: push_spine
