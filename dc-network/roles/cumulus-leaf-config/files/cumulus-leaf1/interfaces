@@ -1,0 +1,63 @@
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*.intf
+
+# The loopback network interface
+auto lo
+   iface lo inet loopback
+   address 3.3.3.3/32
+
+
+# The primary network interface
+auto mgmt
+iface mgmt
+    address 227.0.0.1/8
+    vrf-table auto
+
+auto eth0
+iface eth0 inet static
+    address 10.0.0.233
+    netmask 255.255.255.0
+    gateway 10.0.0.1
+    vrf mgmt
+
+auto swp1
+    iface swp1
+    alias swp1 SPINE1
+
+auto swp2
+    iface swp2
+    alias swp2 SPINE2
+
+auto swp3
+    iface swp3
+    alias swp3 HOST1
+
+auto bridge
+iface bridge
+    bridge-vlan-aware yes
+    bridge-ports swp3 vxlan10101 vxlan10201
+    bridge-vids 101 201
+    bridge-ageing 150
+    bridge-stp on
+
+auto bridge.101
+iface bridge.101
+  address 172.16.101.1/24
+
+auto bridge.201
+iface bridge.201
+  address 172.16.201.1/24
+
+auto vxlan10101
+iface vxlan10101
+     vxlan-id 10101
+     vxlan-local-tunnelip 3.3.3.3
+     bridge-access 101
+
+auto vxlan10201
+iface vxlan10201
+     vxlan-id 10201
+     vxlan-local-tunnelip 3.3.3.3
+     bridge-access 201

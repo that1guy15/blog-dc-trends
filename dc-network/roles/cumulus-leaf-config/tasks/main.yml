@@ -1,0 +1,13 @@
+---
+
+tasks:
+    - name: copy interfaces
+      copy: src=files/{{ansible_hostname}}/interfaces dest=/etc/network/
+    - name: copy Quagga daemons
+      copy: src=files/{{ansible_hostname}}/daemons dest=/etc/quagga/
+    - name: copy Quagga conf
+      copy: src=files/{{ansible_hostname}}/Quagga.conf dest=/etc/quagga/
+    - name: reload networking
+      command: ifreload -a
+    - name: reload quagga
+      service: name=quagga state=restarted

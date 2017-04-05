@@ -1,0 +1,19 @@
+---
+
+tasks:
+  - name: BUILD CONFIGURATION
+    template:
+      src=eos-leaf.j2
+      dest=configs/{{ inventory_hostname }}.conf
+    tags: build_leaf
+  - name: PUSH CONFIGS
+    napalm_install_config:
+      hostname={{ inventory_hostname }}
+      username={{ username }}
+      password={{ pwd }}
+      dev_os=eos
+      config_file=configs/{{ inventory_hostname }}.conf
+      commit_changes=true
+      replace_config=false
+      get_diffs=false
+    tags: push_leaf

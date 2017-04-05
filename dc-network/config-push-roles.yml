@@ -1,0 +1,31 @@
+---
+
+  - name: Build Arista Spine Configuration
+    hosts: eos-spine
+    connection: local
+    gather_facts: no
+
+    roles:
+      - eos-spine-config
+
+  - name: Build Arista leaf Configuration
+    hosts: eos-leaf
+    connection: local
+    gather_facts: no
+
+    roles:
+      - eos-spine-config
+
+  - name: Configure Cumulus Spines
+    hosts: cumulus-spine
+    become: yes
+
+    roles:
+      - cumulus-spine-config
+
+  - name: Configure Cumulus Leafs
+    hosts: cumulus-leaf
+    become: yes
+
+    roles:
+      - cumulus-leaf-config
