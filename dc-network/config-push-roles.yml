@@ -14,7 +14,7 @@
     gather_facts: no
 
     roles:
-      - eos-spine-config
+      - eos-leaf-config
 
   - name: Configure Cumulus Spines
     hosts: cumulus-spine
