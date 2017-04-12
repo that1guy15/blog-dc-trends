@@ -24,3 +24,8 @@ eos-leaf
 [cumulus:children]
 cumulus-spine
 cumulus-leaf
+
+[cumulus:vars]
+ansible_ssh_user=cumulus
+ansible_password=CumulusLinux!
+ansible_sudo_pass=CumulusLinux!
