@@ -10,3 +10,4 @@
   command: ifreload -a
 - name: reload quagga
   service: name=quagga state=restarted
+  tags: push_cumulus

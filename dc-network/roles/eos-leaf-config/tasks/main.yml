@@ -4,7 +4,8 @@
   template:
     src=eos-leaf.j2
     dest=configs/{{ inventory_hostname }}.conf
-  tags: build_leaf
+  tags: build_arista
+
 - name: PUSH CONFIGS
   napalm_install_config:
     hostname={{ inventory_hostname }}
@@ -15,4 +16,4 @@
     commit_changes=true
     replace_config=false
     get_diffs=false
-  tags: push_leaf
+  tags: push_arista

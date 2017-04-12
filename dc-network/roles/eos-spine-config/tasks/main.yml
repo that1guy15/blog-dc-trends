@@ -4,7 +4,7 @@
   template:
     src=eos-spine.j2
     dest=configs/{{ inventory_hostname }}.conf
-  tags: build_spine
+  tags: build_arista
 
 - name: PUSH CONFIGS
   napalm_install_config:
@@ -16,4 +16,4 @@
     commit_changes=true
     replace_config=false
     get_diffs=false
-  tags: push_spine
+  tags: push_arista
