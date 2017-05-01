@@ -11,14 +11,6 @@
         "contents": {
           "source": "data:,labsvr1"
         }
-      },
-      {
-        "filesystem": "root",
-        "path": "/etc/systemd/resolved.conf",
-        "mode": 420,
-        "contents": {
-          "source": "data:,[Resolve]%0ADNS=10.0.0.1%0AFallbackDNS=8.8.8.8"
-        }
       }
     ]
   },
@@ -27,7 +19,7 @@
     "units": [
     {
       "name": "00-ens160.network",
-      "contents": "[Match]\nName=ens160\n\n[Network]\ndns=10.0.0.1\nAddress=10.0.0.226/24\nGateway=10.0.0.1"
+      "contents": "[Match]\nName=ens160\n\n[Network]\nDNS=10.0.0.1\nAddress=10.0.0.226/24\nGateway=10.0.0.1"
       },
       {
       "name": "10-ens192.101.netdev",
