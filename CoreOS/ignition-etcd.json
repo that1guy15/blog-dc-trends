@@ -1,0 +1,72 @@
+{
+  "ignition": {
+    "version": "2.0.0"
+  },
+  "storage": {
+    "files": [
+      {
+        "filesystem": "root",
+        "path": "/etc/hostname",
+        "mode": 420,
+        "contents": {
+          "source": "data:,labsvr1"
+        }
+      }
+    ]
+  },
+  "systemd": {
+    "units": [
+      {
+        "name": "etcd-member.service",
+        "enable": true,
+        "dropins": [
+          {
+            "name": "20-clct-etcd-member.conf",
+            "contents": "[Service]\nExecStart=\nExecStart=/usr/lib/coreos/etcd-wrapper $ETCD_OPTS \\\n  --name=\"labsrv1\" \\\n  --listen-peer-urls=\"https://172.16.101.11:2380\" \\\n  --listen-client-urls=\"https://172.16.101.11:2379\" \\\n  --initial-advertise-peer-urls=\"https://172.16.101.11:2380\" \\\n  --initial-cluster=\"labsrv1=https://172.16.101.11:2380,labsrv2=https://172.16.101.12:2380,labsrv3=https://172.16.101.13:2380\" \\\n  --initial-cluster-state=\"new\" \\\n  --initial-cluster-token=\"my-etcd-token\" \\\n  --advertise-client-urls=\"https://172.16.101.11:2379\""
+          }
+        ]
+      }
+    ]
+  },
+ "networkd": {
+    "units": [
+    {
+      "name": "00-ens160.network",
+      "contents": "[Match]\nName=ens160\n\n[Network]\nDNS=10.0.0.1\nAddress=10.0.0.226/24\nGateway=10.0.0.1"
+      },
+      {
+      "name": "10-ens192.101.netdev",
+      "contents": "[NetDev]\nName=ens192.101\nKind=vlan\n\n[VLAN]\nId=101"
+      },
+      {
+      "name": "10-ens192.102.netdev",
+      "contents": "[NetDev]\nName=ens192.201\nKind=vlan\n\n[VLAN]\nId=201"
+      },
+      {
+      "name": "00-ens192.network",
+      "contents": "[Match]\nName=ens192\n\n[Network]\nDHCP=no\nVLAN=ens192.101\nVLAN=ens192.201"
+      },
+      {
+      "name": "20-ens192.101.network",
+      "contents": "[Match]\nName=ens192.101\n\n[Network]\nAddress=172.16.101.11/24"
+      },
+      {
+      "name": "20-ens192.201.network",
+      "contents": "[Match]\nName=ens192.201\n\n[Network]\nAddress=172.16.201.11/24"
+      }
+    ]
+  },
+  "passwd": {
+    "users": [
+      {
+        "name": "that1guy15",
+        "passwordHash": "$1$xyz$cEUv8aN9ehjhMXG/kSFnM1",
+        "sshAuthorizedKeys": ["AAAAB3NzaC1yc2EAAAADAQsadfsswqoevelknavpoiwefr;ksdvfdkljaqwefrgoihsadfv1cUvV69Xxop0qMAIumA0xQvBED0pQogqIZQiC6CDreCIK4QgLpuy4vor4xlvkVZHdt37hCSjBLrIYEgO4pYtZa6EZsLSf+oQKvStnyCHohJFyNcHYjXF1P6XpDfEXIU5py+0kYcNXYEgcbe3FlvB2E7YCqUeVQGW2E1azaAHlmFwobZgTgurQMmVlLqFHIQsaGGChCojJY"
+],
+        "create": {
+          "groups": ["sudo", "docker"]
+        }
+      }
+    ]
+  }
+}
